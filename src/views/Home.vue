@@ -2,7 +2,7 @@
   <div class="home">
     <div v-if="tasks.length">
       <div v-for="task in tasks" :key="task.id">
-        <SingleTask :task="task" @delete="handelDelete" />
+        <SingleTask :task="task" @delete="handelDelete"  @complete="handelComplete" />
       </div>
     </div>
   </div>
@@ -27,6 +27,12 @@ export default {
       this.tasks = this.tasks.filter((task) => {
         return task.id !== id
       })
+    },
+    handelComplete(id){
+      let p = this.tasks.find(task => {
+        return task.id === id
+      });
+      p.complete = !p.complete
     }
   },
   mounted(){

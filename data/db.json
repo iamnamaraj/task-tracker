@@ -1,13 +1,13 @@
 {
   "tasks": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Clean up default project code",
       "details": "Lorem ipsum",
-      "complete": false
+      "complete": true
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Add new component",
       "details": "Lorem ipsum",
       "complete": false

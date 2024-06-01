@@ -1,11 +1,11 @@
 <template>
-    <div class="task">
+    <div class="task" :class="{ complete: task.complete }">
         <div class="actions" @click="showDetailsToggle">
             <h2> {{ task.title  }}</h2>
             <div class="icons">
                <span class="material-icons">edit</span>
                <span class="material-icons"  @click="deleteTask">delete</span>
-               <span class="material-icons">done</span>
+               <span class="material-icons" @click="compleTask" >done</span>
 
             </div>
         </div>
@@ -32,6 +32,15 @@ export default {
         deleteTask(){
             fetch(this.uri, {method: 'DELETE'})
             .then(() =>this.$emit('delete', this.task.id))
+            .catch(err => console.log(err.message))
+        },
+        compleTask(){
+            fetch(this.uri, {
+                method: 'PATCH',
+                headers: { 'content-type': 'application/json'},
+                body: JSON.stringify({complete: !this.task.complete})
+            } )
+            .then(()=>this.$emit('complete', this.task.id))
             .catch(err => console.log(err.message))
         }
     }
@@ -64,6 +73,9 @@ h2 {
 }
 .material-icons:hover{
     color:#777
+}
+.task.complete {
+    border-left: 4px solid #00ce89;
 }
 
 </style>
