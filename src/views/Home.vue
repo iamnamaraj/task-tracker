@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <div v-if="tasks.length">
-      <div v-for="task in tasks" :key="task.id">
+      <FilterTask @filterChange="current = $event"  :current="current" />
+      <div v-for="task in filteredTask" :key="task.id">
         <SingleTask :task="task" @delete="handelDelete"  @complete="handelComplete" />
       </div>
     </div>
@@ -10,16 +11,18 @@
 
 <script>
   import SingleTask  from '../components/SingleTask.vue';
+  import FilterTask from '../components/FilterTask.vue'
 
 export default {
   name: 'Home',
   components: {
-    SingleTask,
+    SingleTask,FilterTask
   },
 
   data(){
     return {
-      tasks: []
+      tasks: [],
+      current:'all',
     }
   },
   methods:{
@@ -33,6 +36,18 @@ export default {
         return task.id === id
       });
       p.complete = !p.complete
+    }
+  },
+  computed:{
+    filteredTask(){
+      if(this.current === 'completed'){
+        return this.tasks.filter(task=> task.complete)
+      }
+      if(this.current === 'ongoing') {
+        return this.tasks.filter(task=> !task.complete)
+      }else{
+        return this.tasks
+      }
     }
   },
   mounted(){
