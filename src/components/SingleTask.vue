@@ -5,7 +5,7 @@
             <div class="icons">
                <span class="material-icons">edit</span>
                <span class="material-icons"  @click="deleteTask">delete</span>
-               <span class="material-icons" @click="compleTask" >done</span>
+               <span class="material-icons tick" @click="compleTask" >done</span>
 
             </div>
         </div>
@@ -76,6 +76,9 @@ h2 {
 }
 .task.complete {
     border-left: 4px solid #00ce89;
+}
+.task.complete .tick{
+color:  #00ce89;
 }
 
 </style>
